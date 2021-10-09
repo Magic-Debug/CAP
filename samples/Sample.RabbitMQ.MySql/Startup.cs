@@ -1,4 +1,5 @@
-﻿using DotNetCore.CAP.Messages;
+﻿using DotNetCore.CAP.Dashboard.NodeDiscovery;
+using DotNetCore.CAP.Messages;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -14,7 +15,23 @@ namespace Sample.RabbitMQ.MySql
             services.AddCap(x =>
             {
                 x.UseEntityFramework<AppDbContext>();
-                x.UseRabbitMQ("localhost");
+
+                x.UseRabbitMQ(aa =>
+                {
+                    aa.HostName = "117.50.40.186";
+                    aa.UserName = "guest";
+                    aa.Password = "guest";
+                });
+
+                //x.UseDiscovery(d =>
+                //{
+                //    d.DiscoveryServerHostName = "117.50.40.186";
+                //    d.DiscoveryServerPort = 8500;
+                //    d.CurrentNodeHostName = "XXXXX";
+                //    d.CurrentNodePort = 64616;
+                //    d.NodeName = "CAP No.1 Node";
+                //});
+
                 x.UseDashboard();
                 x.FailedRetryCount = 5;
                 x.FailedThresholdCallback = failed =>

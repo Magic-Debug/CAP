@@ -16,12 +16,12 @@ namespace Sample.ConsoleApp
             {
                 //console app does not support dashboard
 
-                x.UseMySql("<ConnectionString>");
+                x.UseMySql("Server=localhost;Port=3306; database=cap; UID=dev; password=1234QWERasdf; SSLMode=none;allowPublicKeyRetrieval=true");
                 x.UseRabbitMQ(z =>
                 {
-                    z.HostName = "192.168.3.57";
-                    z.UserName = "user";
-                    z.Password = "wJ0p5gSs17";
+                    z.HostName = "117.50.40.186";
+                    z.UserName = "guest";
+                    z.Password = "guest";
                 });
             });
 

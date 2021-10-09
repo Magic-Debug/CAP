@@ -20,15 +20,15 @@ namespace Samples.Redis.SqlServer
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Samples.Redis.SqlServer", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Cap.Samples.Redis.SqlServer", Version = "v1" });
             });
 
 
             services.AddCap(options =>
             {
-                options.UseRedis("redis-node-0:6379,password=cap");
+                options.UseRedis("117.50.40.186:6379,password=cap");
 
-                options.UseSqlServer("Server=db;Database=master;User=sa;Password=P@ssw0rd;");
+                options.UseSqlServer("Server=localhost;Database=AdventureWorks2016;User=dev;Password=zxcvbnm;");
             });
         }
 
