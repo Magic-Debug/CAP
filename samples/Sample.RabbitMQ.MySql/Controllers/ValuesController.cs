@@ -21,8 +21,12 @@ namespace Sample.RabbitMQ.MySql.Controllers
         [Route("~/without/transaction")]
         public async Task<IActionResult> WithoutTransaction()
         {
-            await _capBus.PublishAsync("sample.rabbitmq.mysql", DateTime.Now);
-
+            await _capBus.PublishAsync("sample.rabbitmq.mysql", new
+            {
+                From = "117.50.40.186",
+                Time = DateTime.Now
+            }
+            );
             return Ok();
         }
 
@@ -47,7 +51,7 @@ namespace Sample.RabbitMQ.MySql.Controllers
         }
 
         [Route("~/ef/transaction")]
-        public IActionResult EntityFrameworkWithTransaction([FromServices]AppDbContext dbContext)
+        public IActionResult EntityFrameworkWithTransaction([FromServices] AppDbContext dbContext)
         {
             using (var trans = dbContext.Database.BeginTransaction(_capBus, autoCommit: false))
             {
@@ -67,14 +71,14 @@ namespace Sample.RabbitMQ.MySql.Controllers
 
         [NonAction]
         [CapSubscribe("sample.rabbitmq.mysql")]
-        public void Subscriber(DateTime p)
+        public void SubscriberTime(DateTime p)
         {
             Console.WriteLine($@"{DateTime.Now} Subscriber invoked, Info: {p}");
         }
 
         [NonAction]
         [CapSubscribe("sample.rabbitmq.mysql", Group = "group.test2")]
-        public void Subscriber2(DateTime p, [FromCap]CapHeader header)
+        public void Subscriber2(DateTime p, [FromCap] CapHeader header)
         {
             Console.WriteLine($@"{DateTime.Now} Subscriber invoked, Info: {p}");
         }
