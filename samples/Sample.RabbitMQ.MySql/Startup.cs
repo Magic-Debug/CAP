@@ -23,14 +23,14 @@ namespace Sample.RabbitMQ.MySql
                     aa.Password = "guest";
                 });
 
-                //x.UseDiscovery(d =>
-                //{
-                //    d.DiscoveryServerHostName = "117.50.40.186";
-                //    d.DiscoveryServerPort = 8500;
-                //    d.CurrentNodeHostName = "XXXXX";
-                //    d.CurrentNodePort = 64616;
-                //    d.NodeName = "CAP No.1 Node";
-                //});
+                x.UseDiscovery(d =>
+                {
+                    d.DiscoveryServerHostName = "117.50.40.186";
+                    d.DiscoveryServerPort = 8500;
+                    d.CurrentNodeHostName = "117.50.40.186";
+                    d.CurrentNodePort = 64616;
+                    d.NodeName = "CAP No.1 Consul";
+                });
 
                 x.UseDashboard();
                 x.FailedRetryCount = 5;
